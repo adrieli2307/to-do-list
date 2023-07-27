@@ -1,0 +1,60 @@
+.form{
+    margin-left:30% ;
+    margin-top: 10%;
+    border-color: rgb(15, 163, 227);
+    border-style:solid;
+    margin-right: 30% ;
+
+}
+.titulo{
+    color: rgb(15, 163, 227);
+    font-size: 25px;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 50px;
+}
+.taskName{
+    margin-left: 12%;
+    margin-top: 25px;
+    height: 35px;
+    width: 42%;
+    text-align: left; /* Alineación del texto a la izquierda */
+    padding-left: 20px; /* Agregar 20px de espacio a la izquierda del contenido */
+    border-radius: 5px; 
+    font-size: 20px; 
+}
+.addTask{
+    color:white;
+    background-color:rgb(15, 163, 227);
+    height: 40px;
+    width: 23%;
+    border-radius: 5px; 
+    font-size: 20px;
+    margin-left: 15px;
+    border: none;
+}
+.deleteTask{
+    color:white;
+    background-color:rgb(15, 163, 227);
+    height: 30px;
+    width: 15%;
+    border-radius: 5px; 
+    font-size: 15px;
+    margin-left: 40%;
+    border: none; 
+}
+ul{
+    margin-left: 3%;
+    list-style-type: none;
+    padding: 0;
+}
+span{
+ 
+    font-size: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.taskCheck {
+    height: 20px;
+    width: 20%; 
+  }
