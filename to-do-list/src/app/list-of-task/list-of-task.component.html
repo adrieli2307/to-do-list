@@ -1,17 +1,24 @@
-<form class="form" >
+<div class="form" >
 <h1 class="titulo">TODO LIST</h1>
  <div>
-    <input class="taskName" type="text" placeholder="Titulo" required>
-    <button class="addTask">Agregar</button>
+    <input  class="taskName" type="text" [(ngModel)]="newTask" name="Task" placeholder="Titulo"  required>
+    <button class="addTask" (click)="addTask()" type="submit">Agregar</button>
+ </div>
+ <br>
+ <div>
+    <span class="taskerror">{{errorTask}}</span>
  </div>
  <div>
     <ul>
-        <li>
-            <input type="checkbox" class="taskCheck">
-            <span>Tarea</span>
-            <button class="deleteTask">Eliminar</button>
-        </li>
+        <li *ngFor="let task of tasks" class="taskContainer">
+            <input type="checkbox" class="taskCheck" [(ngModel)]="task.completed" (change)="onTaskChange(task)">
+            <span [class.completed-task]="task.completed">{{task.task}}</span>
+            <button class="deleteTask" (click)="deleteTask(task)">Eliminar</button>
+          </li>
+          <div>
+            <span>No existen tareas pendientes</span>
+          </div>
     </ul>
  </div>
 
-</form>
+</div>
