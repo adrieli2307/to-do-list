@@ -13,6 +13,7 @@ export class ListOfTaskComponent implements OnInit {
   errorTask: string = '';
   taskPendding: Task[] = [];
   taskCompleted: Task[] = [];
+ 
 
   constructor (private formBuilder: FormBuilder) {}
 
@@ -39,6 +40,8 @@ export class ListOfTaskComponent implements OnInit {
     this.tasks.push({ task: this.taskForm.value.newTask, completed: false });
     this.taskForm.reset();
     this.savedLocalStorage();
+    this.updateTasks();
+   
   }
 
   savedLocalStorage() {
@@ -55,6 +58,7 @@ export class ListOfTaskComponent implements OnInit {
 
   onTaskChange(task: Task) {
     this.savedLocalStorage();
+    this.updateTasks();
   }
 
   deleteTask(task: Task) {
@@ -62,11 +66,12 @@ export class ListOfTaskComponent implements OnInit {
     if (index !== -1) {
       this.tasks.splice(index, 1);
       this.savedLocalStorage();
+      this.updateTasks();
     }
   }
 
   updateTasks(){
-
+    
     this.taskPendding = this.tasks.filter((task) => !task.completed);
     this.taskCompleted = this.tasks.filter((task) => task.completed);
   }
