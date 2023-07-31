@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder,FormGroup,Validators } from '@angular/forms';
 import { Task } from '../Interface/task.interface';
 
 @Component({
@@ -6,19 +7,28 @@ import { Task } from '../Interface/task.interface';
   templateUrl: './list-of-task.component.html',
   styleUrls: ['./list-of-task.component.css']
 })
-export class ListOfTaskComponent {
+export class ListOfTaskComponent implements OnInit {
+  taskForm!:FormGroup;
   tasks: Task[] = [];
-  newTask: string = '';
   errorTask: string = '';
   taskPendding: Task[] = [];
   taskCompleted: Task[] = [];
 
+  constructor (private formBuilder: FormBuilder) {}
+
   ngOnInit() {
+    this.createForm();
     this.loadLocalStorage();
   }
 
+  createForm(){
+    this.taskForm = this.formBuilder.group({
+      newTask: ["", Validators.required]
+    })
+  }
+
   addTask() {
-    if (this.newTask.trim() === '') {
+    if (this.taskForm.invalid) {
       this.errorTask = 'Por favor, ingresa los datos de la nueva tarea';
       setTimeout(() => {
         this.errorTask = ''; // Borra el mensaje de error después de 3 segundos
@@ -26,8 +36,8 @@ export class ListOfTaskComponent {
       return;
     }
     this.errorTask = '';
-    this.tasks.push({ task: this.newTask, completed: false });
-    this.newTask = '';
+    this.tasks.push({ task: this.taskForm.value.newTask, completed: false });
+    this.taskForm.reset();
     this.savedLocalStorage();
   }
 
@@ -39,6 +49,7 @@ export class ListOfTaskComponent {
     const savedTasks = localStorage.getItem('tasks');
     if (savedTasks) {
       this.tasks = JSON.parse(savedTasks);
+      this.updateTasks();
     }
   }
 
@@ -52,6 +63,12 @@ export class ListOfTaskComponent {
       this.tasks.splice(index, 1);
       this.savedLocalStorage();
     }
+  }
+
+  updateTasks(){
+
+    this.taskPendding = this.tasks.filter((task) => !task.completed);
+    this.taskCompleted = this.tasks.filter((task) => task.completed);
   }
 }
 

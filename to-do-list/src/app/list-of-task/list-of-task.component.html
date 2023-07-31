@@ -1,12 +1,12 @@
 <div class="form" >
 <h1 class="titulo">TODO LIST</h1>
- <div>
-    <input  class="taskName" type="text" [(ngModel)]="newTask" name="Task" placeholder="Titulo"  required>
+ <div [formGroup]="taskForm">
+    <input  class="taskName" type="text" formControlName="newTask" placeholder="Titulo"  required>
     <button class="addTask" (click)="addTask()" type="submit">Agregar</button>
  </div>
  <br>
  <div>
-    <span class="taskerror">{{errorTask}}</span>
+    <span class="taskerror" *ngIf="errorTask">{{errorTask}}</span>
  </div>
  <div>
     <ul>
@@ -15,10 +15,26 @@
             <span [class.completed-task]="task.completed">{{task.task}}</span>
             <button class="deleteTask" (click)="deleteTask(task)">Eliminar</button>
           </li>
-          <div>
-            <span>No existen tareas pendientes</span>
-          </div>
-    </ul>
+       </ul>
+    <div>
+      <span class="pendiingList" *ngIf="tasks.length ===0">No existen tareas pendientes</span>
+    </div>
+ </div>
+ 
+ <div *ngIf ="taskCompleted.length >0 && taskCompleted.length !== tasks.length">
+   <span>{{taskPendding.length}} de {{tasks.length}} Tareas pendientes</span>
  </div>
 
+ <div *ngIf ="taskCompleted.length === taskCompleted.length && tasks.length >0">
+   <span>{{taskPendding.length}} de {{tasks.length}} Tareas pendientes</span>
+ </div>
+
+ <div  *ngIf ="taskCompleted.length === 0 && taskCompleted.length === 0">
+   <span class="taskList" >{{taskPendding.length}} de {{tasks.length}} Tareas pendientes</span>
+ </div>
+
+
+ 
+
 </div>
+
